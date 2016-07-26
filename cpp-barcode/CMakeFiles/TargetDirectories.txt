@@ -1,1 +1,0 @@
-/home/kunal/Code/code/rd/iot/iot/cpp/CMakeFiles/main.dir

@@ -62,6 +62,10 @@ if not args.get("video", False):
 else:
 	camera = cv2.VideoCapture(args["video"])
 
+camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 320)
+camera.set(cv2.CAP_PROP_FPS, 24)
+
 # keep looping over the frames
 while True:
 	# grab the current frame
@@ -74,6 +78,13 @@ while True:
 
 	# detect the barcode in the image
 	box = detect(frame)
+	scanner = zbar.ImageScanner()
+	
+	zImage = zbar.Image(640, 320, 'Y800', ''.join(str(box)[1:-1]))
+
+	testing = scanner.scan(zImage)
+
+	print(testing)
 
 	# if a barcode was found, draw a bounding box on the frame
 	cv2.drawContours(frame, [box], -1, (0, 255, 0), 2)
